@@ -6,6 +6,13 @@ var bodyParser = require('body-parser');
 var helpers = require('./server/helpers/app-helpers.js');
 
 var app = express();
+var basicAuth = require('express-basic-auth')
+var user = process.env.NODE_ENV === 'user';
+var pass = process.env.NODE_ENV === 'pass';
+
+app.use(basicAuth({
+    users: { user: pass }
+}))
 
 var isProduction = process.env.NODE_ENV === 'production';
 var apiUrl = url.parse(process.env.API_URL);
